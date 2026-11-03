@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER TECH MATCH P.6 - เกมจับคู่อุปกรณ์คอมพิวเตอร์</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Kanit & Orbitron -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #090a14;
+            --bg-panel: #121528;
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff007f;
+            --neon-yellow: #fcee0a;
+            --neon-green: #00ff66;
+            --neon-purple: #b537f2;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            overflow-x: hidden;
+            user-select: none;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 36px 36px;
+            background-position: center center;
+        }
+
+        .font-cyber {
+            font-family: 'Orbitron', 'Kanit', sans-serif;
+        }
+
+        /* Cyberpunk Panel & Glows */
+        .cyber-card {
+            background: rgba(18, 21, 40, 0.92);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.25), inset 0 0 15px rgba(0, 243, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .cyber-card-pink {
+            background: rgba(24, 12, 30, 0.95);
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.4), inset 0 0 15px rgba(255, 0, 127, 0.15);
+        }
+
+        .cyber-card-yellow {
+            border-color: var(--neon-yellow);
+            box-shadow: 0 0 20px rgba(252, 238, 10, 0.3);
+        }
+
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.8), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .text-glow-pink {
+            text-shadow: 0 0 12px rgba(255, 0, 127, 0.9), 0 0 25px rgba(255, 0, 127, 0.5);
+        }
+
+        .text-glow-yellow {
+            text-shadow: 0 0 10px rgba(252, 238, 10, 0.8);
+        }
+
+        .text-glow-green {
+            text-shadow: 0 0 12px rgba(0, 255, 102, 0.9);
+        }
+
+        /* Cyberpunk Buttons */
+        .cyber-btn {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.15) 0%, rgba(18, 21, 40, 0.95) 100%);
+            border: 2px solid var(--neon-cyan);
+            color: #ffffff;
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.35) 0%, rgba(181, 55, 242, 0.3) 100%);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+            transform: translateY(-3px);
+            border-color: #ffffff;
+        }
+
+        .cyber-btn:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+
+        .cyber-btn-primary {
+            background: linear-gradient(90deg, #00f3ff 0%, #00a8ff 100%);
+            color: #050711;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.6);
+            font-weight: 800;
+        }
+
+        .cyber-btn-primary:hover {
+            background: linear-gradient(90deg, #fcee0a 0%, #00f3ff 100%);
+            box-shadow: 0 0 30px rgba(252, 238, 10, 0.8);
+            transform: scale(1.03);
+        }
+
+        /* Shake Animation for "กรุณาอย่าเจ๋อ" */
+        @keyframes shakeHard {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            15% { transform: translate(-12px, -6px) rotate(-2deg); }
+            30% { transform: translate(12px, 6px) rotate(2deg); }
+            45% { transform: translate(-10px, 6px) rotate(-1.5deg); }
+            60% { transform: translate(10px, -6px) rotate(1.5deg); }
+            75% { transform: translate(-6px, 4px) rotate(-1deg); }
+            90% { transform: translate(6px, -2px) rotate(1deg); }
+        }
+
+        .animate-shake {
+            animation: shakeHard 0.55s ease-in-out;
+        }
+
+        @keyframes pulseDanger {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 127, 0.6), inset 0 0 20px rgba(255, 0, 127, 0.3); }
+            50% { box-shadow: 0 0 45px rgba(255, 0, 127, 1), inset 0 0 35px rgba(255, 0, 127, 0.6); }
+        }
+
+        .danger-modal-glow {
+            animation: pulseDanger 1s infinite;
+        }
+
+        /* Scanline subtle overlay */
+        .scanlines::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.08),
+                rgba(0, 0, 0, 0.08) 1px,
+                transparent 1px,
+                transparent 3px
+            );
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090a14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #00f3ff;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="scanlines min-h-screen flex flex-col justify-between p-3 sm:p-6">
+
+    <!-- Top Navigation / Status Header -->
+    <header class="w-full max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3 py-3 px-5 rounded-2xl cyber-card mb-4">
+        <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-cyan-500/20 border-2 border-cyan-400 flex items-center justify-center text-cyan-300 shadow-[0_0_12px_#00f3ff]">
+                <i class="fa-solid fa-microchip text-2xl"></i>
+            </div>
+            <div>
+                <span class="text-xs font-cyber tracking-widest text-cyan-300 uppercase block">EDU-CYBER SYSTEM // P.6</span>
+                <h1 class="text-lg sm:text-xl font-extrabold tracking-wide text-white">ปฏิบัติการจับคู่อุปกรณ์คอมพิวเตอร์</h1>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+            <!-- Sound Toggle Button -->
+            <button id="soundToggleBtn" onclick="toggleSound()" class="px-3.5 py-2 rounded-xl border border-cyan-400 bg-slate-900/80 hover:bg-cyan-950 text-cyan-300 text-sm font-medium flex items-center gap-2 transition">
+                <i id="soundIcon" class="fa-solid fa-volume-high"></i>
+                <span id="soundText" class="hidden sm:inline">เสียง: เปิด</span>
+            </button>
+
+            <!-- Download HTML Source Code Button for Teacher/Student -->
+            <button onclick="downloadGameHTML()" class="px-3.5 py-2 rounded-xl border border-yellow-400 bg-yellow-500/10 hover:bg-yellow-500/25 text-yellow-300 text-sm font-semibold flex items-center gap-2 transition" title="ดาวน์โหลดไฟล์ index.html">
+                <i class="fa-solid fa-download"></i>
+                <span class="hidden md:inline">บันทึกไฟล์ index.html</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN SPA CONTAINER -->
+    <main class="w-full max-w-5xl mx-auto flex-1 flex items-center justify-center my-auto">
+
+        <!-- ================= 1. START SCREEN ================= -->
+        <section id="startScreen" class="w-full cyber-card rounded-3xl p-6 sm:p-10 text-center transition-all">
+            <div class="inline-block px-4 py-1.5 rounded-full bg-pink-500/20 border border-pink-500 text-pink-300 text-sm font-bold mb-4 tracking-wider">
+                <i class="fa-solid fa-bolt mr-1 text-yellow-300"></i> วิทยาการคำนวณ ชั้นประถมศึกษาปีที่ 6
+            </div>
+
+            <h2 class="text-3xl sm:text-5xl font-black text-cyan-300 text-glow-cyan font-cyber tracking-tight mb-3">
+                CYBER HARDWARE MATCH
+            </h2>
+            <p class="text-lg sm:text-xl text-slate-200 max-w-2xl mx-auto mb-8 font-medium">
+                ทดสอบความแม่นยำและความไว! วิเคราะห์ภาพอุปกรณ์คอมพิวเตอร์แล้วเลือกคำตอบที่ถูกต้องภายในเวลาที่กำหนด
+            </p>
+
+            <!-- Rules Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8 text-left">
+                <div class="p-4 rounded-2xl bg-slate-900/90 border border-cyan-500/50 flex items-start gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-300 shrink-0 text-lg font-bold">
+                        20
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-cyan-300 text-base">ภารกิจ 20 ข้อ</h3>
+                        <p class="text-sm text-slate-300">สุ่มลำดับอุปกรณ์คอมพิวเตอร์ครบทุกหมวดหมู่ ป.6</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-900/90 border border-yellow-400/50 flex items-start gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-yellow-500/20 border border-yellow-400 flex items-center justify-center text-yellow-300 shrink-0 text-lg">
+                        <i class="fa-solid fa-stopwatch"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-yellow-300 text-base">เวลาข้อละ 10 วินาที</h3>
+                        <p class="text-sm text-slate-300">ต้องตัดสินใจให้ไวก่อนพลังงานในแต่ละข้อจะหมดลง</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-900/90 border border-emerald-400/50 flex items-start gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-400 flex items-center justify-center text-emerald-300 shrink-0 text-lg font-bold">
+                        +1
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-emerald-400 text-base">ตอบถูกได้ +1 คะแนน</h3>
+                        <p class="text-sm text-slate-300">สะสมแต้มและคอมโบเพื่อเลื่อนยศเป็นปรมาจารย์ไซเบอร์</p>
+                    </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-900/90 border border-pink-500/70 flex items-start gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-pink-500/20 border border-pink-500 flex items-center justify-center text-pink-400 shrink-0 text-lg font-bold">
+                        -5
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-pink-400 text-base">ตอบผิด / หมดเวลา -5</h3>
+                        <p class="text-sm text-slate-300">หัก 5 คะแนนทันที พร้อมระบบเตือน <span class="text-yellow-300 font-bold">"กรุณาอย่าเจ๋อ"</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player Name Input -->
+            <div class="max-w-md mx-auto mb-7">
+                <label for="playerNameInput" class="block text-sm font-semibold text-cyan-300 mb-2 tracking-wide">
+                    <i class="fa-solid fa-user-astronaut mr-1"></i> ชื่อรหัสประจำตัวนักเรียน (ใส่หรือไม่ใส่ก็ได้):
+                </label>
+                <input id="playerNameInput" type="text" maxlength="24" placeholder="เช่น น้องไบต์ ป.6/1" 
+                    class="w-full px-4 py-3.5 rounded-xl bg-slate-950 border-2 border-cyan-400/70 text-white text-center text-lg font-semibold focus:outline-none focus:border-yellow-400 focus:shadow-[0_0_15px_rgba(252,238,10,0.5)] placeholder-slate-500">
+            </div>
+
+            <!-- Start Action Button -->
+            <button onclick="startGame()" class="cyber-btn-primary px-10 py-4 rounded-2xl text-xl sm:text-2xl tracking-wide inline-flex items-center gap-3 cursor-pointer">
+                <i class="fa-solid fa-play"></i>
+                <span>เริ่มปฏิบัติการ (START GAME)</span>
+            </button>
+        </section>
+
+        <!-- ================= 2. GAMEPLAY SCREEN ================= -->
+        <section id="gameScreen" class="w-full hidden flex-col gap-4">
+            
+            <!-- Top HUD: Question Counter, Timer Numeric, Score -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                <!-- Question Counter -->
+                <div class="cyber-card rounded-2xl p-3 sm:p-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs sm:text-sm text-cyan-300 font-semibold block">ข้อที่ (MISSION)</span>
+                        <div class="text-2xl sm:text-3xl font-black font-cyber text-white">
+                            <span id="questionIndexText" class="text-cyan-300">1</span><span class="text-slate-400 text-lg sm:text-xl">/20</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-layer-group text-cyan-400/50 text-2xl sm:text-3xl hidden sm:block"></i>
+                </div>
+
+                <!-- Countdown Timer Display -->
+                <div id="timerCard" class="cyber-card rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center text-center">
+                    <span class="text-xs sm:text-sm text-yellow-300 font-semibold block">เวลาที่เหลือ (TIME)</span>
+                    <div class="flex items-baseline gap-1">
+                        <span id="timerText" class="text-3xl sm:text-4xl font-black font-cyber text-yellow-300 text-glow-yellow">10.0</span>
+                        <span class="text-xs sm:text-sm text-slate-300 font-bold">วิ</span>
+                    </div>
+                </div>
+
+                <!-- Live Score Display -->
+                <div class="cyber-card rounded-2xl p-3 sm:p-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs sm:text-sm text-emerald-300 font-semibold block">คะแนนรวม (SCORE)</span>
+                        <div id="scoreText" class="text-2xl sm:text-3xl font-black font-cyber text-emerald-400 text-glow-green">
+                            0
+                        </div>
+                    </div>
+                    <div id="scoreDeltaBadge" class="hidden px-2.5 py-1 rounded-lg font-black text-sm sm:text-base"></div>
+                </div>
+            </div>
+
+            <!-- 10-Second Neon Timer Bar -->
+            <div class="w-full bg-slate-900/90 h-4 rounded-full p-0.5 border border-cyan-500/50 overflow-hidden shadow-inner">
+                <div id="timerBar" class="h-full rounded-full bg-gradient-to-r from-cyan-400 via-emerald-400 to-yellow-300 transition-all duration-100" style="width: 100%;"></div>
+            </div>
+
+            <!-- Main Question Display Card -->
+            <div class="cyber-card rounded-3xl p-5 sm:p-7 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                
+                <!-- Left Column: Device Visual SVG Illustration -->
+                <div class="lg:col-span-5 flex flex-col items-center">
+                    <div class="w-full max-w-[270px] aspect-square rounded-2xl bg-slate-950/90 border-2 border-cyan-400/80 shadow-[0_0_25px_rgba(0,243,255,0.2)] flex items-center justify-center p-5 relative overflow-hidden group">
+                        <!-- Corner Decorative Accents -->
+                        <div class="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-yellow-400"></div>
+                        <div class="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-yellow-400"></div>
+                        <div class="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-yellow-400"></div>
+                        <div class="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-yellow-400"></div>
+
+                        <!-- Dynamic SVG Hardware Icon Container -->
+                        <div id="svgContainer" class="w-full h-full flex items-center justify-center"></div>
+                    </div>
+
+                    <span id="categoryBadge" class="mt-3 px-3.5 py-1 rounded-full text-xs sm:text-sm font-bold bg-purple-500/20 border border-purple-400 text-purple-200">
+                        หมวดหมู่อุปกรณ์
+                    </span>
+                </div>
+
+                <!-- Right Column: Question Prompt & 4 Choices -->
+                <div class="lg:col-span-7 flex flex-col justify-between h-full">
+                    <div class="mb-5">
+                        <div class="inline-flex items-center gap-2 text-cyan-300 text-sm font-bold mb-1">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                            <span>คำใบ้หน้าที่ของอุปกรณ์ (HARDWARE DATA):</span>
+                        </div>
+                        <h3 id="questionHintText" class="text-xl sm:text-2xl font-bold text-white leading-relaxed bg-slate-900/90 border-l-4 border-yellow-400 p-4 rounded-r-xl">
+                            กำลังโหลดข้อมูลอุปกรณ์...
+                        </h3>
+                    </div>
+
+                    <!-- 4 Multiple Choice Buttons -->
+                    <div id="choicesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 3. END / SUMMARY SCREEN ================= -->
+        <section id="endScreen" class="w-full hidden cyber-card rounded-3xl p-6 sm:p-10 text-center">
+            <div class="inline-block px-4 py-1 rounded-full bg-cyan-500/20 border border-cyan-400 text-cyan-300 text-sm font-bold mb-3">
+                MISSION COMPLETE // สรุปผลการปฏิบัติการ
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl font-black text-white mb-2">
+                รายงานผลคะแนนของ <span id="summaryPlayerName" class="text-yellow-300">วัยรุ่นไซเบอร์</span>
+            </h2>
+            <p id="rankTitleText" class="text-xl sm:text-2xl font-extrabold text-pink-400 text-glow-pink mb-6">
+                ยศไซเบอร์: กำลังประมวลผล...
+            </p>
+
+            <!-- Summary Stats Boxes -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-8">
+                <div class="p-5 rounded-2xl bg-slate-900/90 border-2 border-cyan-400">
+                    <span class="text-sm text-cyan-300 font-bold block mb-1">คะแนนสุทธิ (FINAL SCORE)</span>
+                    <span id="finalScoreText" class="text-4xl sm:text-5xl font-black font-cyber text-white text-glow-cyan">0</span>
+                    <span class="text-xs text-slate-400 block mt-1">คะแนนเต็ม 20 คะแนน</span>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-slate-900/90 border-2 border-emerald-400">
+                    <span class="text-sm text-emerald-300 font-bold block mb-1">ตอบถูก (+1 คะแนน)</span>
+                    <span id="correctCountText" class="text-4xl sm:text-5xl font-black font-cyber text-emerald-400">0</span>
+                    <span class="text-xs text-slate-400 block mt-1">ข้อ</span>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-slate-900/90 border-2 border-pink-500">
+                    <span class="text-sm text-pink-400 font-bold block mb-1">ตอบผิด / หมดเวลา (-5 คะแนน)</span>
+                    <span id="wrongCountText" class="text-4xl sm:text-5xl font-black font-cyber text-pink-400">0</span>
+                    <span class="text-xs text-slate-400 block mt-1">ข้อ</span>
+                </div>
+            </div>
+
+            <!-- Answer Log / Review Section -->
+            <div class="max-w-4xl mx-auto mb-8 text-left">
+                <h3 class="text-lg font-bold text-cyan-300 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-check"></i> สรุปเฉลยอุปกรณ์คอมพิวเตอร์ทั้ง 20 ข้อ:
+                </h3>
+                <div id="reviewListContainer" class="max-h-64 overflow-y-auto pr-2 grid grid-cols-1 md:grid-cols-2 gap-2.5 bg-slate-950/80 p-4 rounded-2xl border border-slate-800">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <button onclick="startGame()" class="cyber-btn-primary px-8 py-4 rounded-2xl text-xl font-extrabold inline-flex items-center gap-3 cursor-pointer">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>เล่นใหม่อีกครั้ง (PLAY AGAIN)</span>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= MODAL: "กรุณาอย่าเจ๋อ" (WRONG / TIMEOUT ALERT) ================= -->
+    <div id="jeoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4">
+        <div id="jeoModalBox" class="w-full max-w-lg cyber-card-pink danger-modal-glow rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
+            <!-- Top Warning Stripe -->
+            <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-pink-600/30 border border-pink-400 text-yellow-300 text-sm font-extrabold mb-4 tracking-wider uppercase">
+                <i class="fa-solid fa-triangle-exclamation"></i> SYSTEM ALERT // PENALTY -5 PTS
+            </div>
+
+            <!-- Giant "กรุณาอย่าเจ๋อ" Message -->
+            <h2 class="text-4xl sm:text-6xl font-black text-yellow-300 text-glow-pink tracking-wide my-2">
+                กรุณาอย่าเจ๋อ!
+            </h2>
+
+            <p id="jeoReasonText" class="text-lg sm:text-xl font-bold text-pink-300 mb-4">
+                ตอบผิด! หักไปเลย -5 คะแนน!
+            </p>
+
+            <!-- Correct Answer Box -->
+            <div class="bg-slate-950/90 border-2 border-cyan-400 rounded-2xl p-4 mb-6 text-left">
+                <span class="text-xs font-bold text-cyan-300 uppercase block mb-1">คำตอบที่ถูกต้องคือ:</span>
+                <div id="jeoCorrectDeviceName" class="text-xl sm:text-2xl font-extrabold text-white mb-1">
+                    CPU (ซีพียู)
+                </div>
+                <p id="jeoCorrectExplanation" class="text-sm text-slate-300">
+                    เปรียบเสมือนสมองของคอมพิวเตอร์ ทำหน้าที่ประมวลผลคำสั่งทั้งหมด
+                </p>
+            </div>
+
+            <button onclick="closeJeoModalAndNext()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-pink-500 to-yellow-400 text-slate-950 font-black text-lg sm:text-xl hover:brightness-110 transition shadow-[0_0_20px_rgba(255,0,127,0.7)] cursor-pointer">
+                เข้าใจแล้ว! ลุยข้อต่อไป <i class="fa-solid fa-angles-right ml-1"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= MODAL: CORRECT FEEDBACK TOAST OVERLAY ================= -->
+    <div id="correctOverlay" class="fixed inset-0 z-40 pointer-events-none hidden items-center justify-center">
+        <div class="px-8 py-5 rounded-3xl bg-emerald-950/95 border-2 border-emerald-400 shadow-[0_0_40px_rgba(0,255,102,0.7)] text-center transform scale-105 transition">
+            <div class="text-4xl sm:text-5xl font-black text-emerald-400 text-glow-green mb-1">
+                <i class="fa-solid fa-circle-check mr-2"></i>ถูกต้อง! +1 คะแนน
+            </div>
+            <p class="text-white text-base sm:text-lg font-semibold">แม่นยำมากวัยรุ่นไซเบอร์!</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-5xl mx-auto text-center py-3 text-xs sm:text-sm text-slate-400 mt-4">
+        สื่อการเรียนรู้รายวิชาเทคโนโลยี (วิทยาการคำนวณ) ชั้นประถมศึกษาปีที่ 6 | กติกา: ตอบถูก +1 คะแนน | ตอบผิดหรือหมดเวลา -5 คะแนน
+    </footer>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        /* -------------------------------------------------------------------------- */
+        /* 1. COMPLETE 20 HARDWARE QUESTIONS FOR PRIMARY 6 WITH CUSTOM NEON SVGs      */
+        /* -------------------------------------------------------------------------- */
+        const hardwareDatabase = [
+            {
+                id: 1,
+                name: "CPU (ซีพียู / หน่วยประมวลผลกลาง)",
+                shortName: "CPU (ซีพียู)",
+                category: "หน่วยประมวลผล",
+                hint: "เปรียบเสมือน 'สมองของคอมพิวเตอร์' ทำหน้าที่คิดคำนวณและประมวลผลคำสั่งทั้งหมด",
+                svg: `<svg viewBox="0 0 120 120" class="w-40 h-40">
+                        <g stroke="#00f3ff" stroke-width="3" fill="none" stroke-linecap="round">
+                            <!-- Pins top/bottom/left/right -->
+                            <line x1="35" y1="12" x2="35" y2="25"/><line x1="50" y1="12" x2="50" y2="25"/><line x1="65" y1="12" x2="65" y2="25"/><line x1="80" y1="12" x2="80" y2="25"/>
+                            <line x1="35" y1="95" x2="35" y2="108"/><line x1="50" y1="95" x2="50" y2="108"/><line x1="65" y1="95" x2="65" y2="108"/><line x1="80" y1="95" x2="80" y2="108"/>
+                            <line x1="12" y1="35" x2="25" y2="35"/><line x1="12" y1="50" x2="25" y2="50"/><line x1="12" y1="65" x2="25" y2="65"/><line x1="12" y1="80" x2="25" y2="80"/>
+                            <line x1="95" y1="35" x2="108" y2="35"/><line x1="95" y1="50" x2="108" y2="50"/><line x1="95" y1="65" x2="108" y2="65"/><line x1="95" y1="80" x2="108" y2="80"/>
+                            <rect x="25" y="25" width="70" height="70" rx="8" fill="#121830" stroke="#00f3ff" stroke-width="3.5"/>
+                            <rect x="38" y="38" width="44" height="44" rx="4" fill="#1a103c" stroke="#ff007f" stroke-width="2.5"/>
+                        </g>
+                        <text x="60" y="65" text-anchor="middle" fill="#fcee0a" font-family="Orbitron, sans-serif" font-weight="900" font-size="15">CPU</text>
+                      </svg>`
+            },
+            {
+                id: 2,
+                name: "RAM (แรม / หน่วยความจำหลักแบบชั่วคราว)",
+                shortName: "RAM (แรม)",
+                category: "หน่วยความจำ",
+                hint: "หน่วยความจำชั่วคราว ช่วยให้เปิดโปรแกรมได้ลื่นไหล แต่ข้อมูลจะหายไปเมื่อปิดเครื่อง",
+                svg: `<svg viewBox="0 0 140 100" class="w-44 h-36">
+                        <rect x="10" y="25" width="120" height="45" rx="4" fill="#0f292a" stroke="#00ff66" stroke-width="3"/>
+                        <!-- Memory Chips -->
+                        <rect x="22" y="34" width="16" height="24" rx="2" fill="#121528" stroke="#00f3ff" stroke-width="2"/>
+                        <rect x="46" y="34" width="16" height="24" rx="2" fill="#121528" stroke="#00f3ff" stroke-width="2"/>
+                        <rect x="78" y="34" width="16" height="24" rx="2" fill="#121528" stroke="#00f3ff" stroke-width="2"/>
+                        <rect x="102" y="34" width="16" height="24" rx="2" fill="#121528" stroke="#00f3ff" stroke-width="2"/>
+                        <!-- Gold Contacts -->
+                        <rect x="16" y="70" width="48" height="8" fill="#fcee0a"/>
+                        <rect x="74" y="70" width="50" height="8" fill="#fcee0a"/>
+                        <text x="70" y="20" text-anchor="middle" fill="#00ff66" font-family="Orbitron" font-weight="800" font-size="12">DDR-RAM</text>
+                      </svg>`
+            },
+            {
+                id: 3,
+                name: "Mainboard (เมนบอร์ด / แผงวงจรหลัก)",
+                shortName: "Mainboard (เมนบอร์ด)",
+                category: "ส่วนประกอบหลัก",
+                hint: "แผงวงจรขนาดใหญ่ที่เป็นศูนย์กลางเชื่อมต่อ CPU, RAM, การ์ดจอ และอุปกรณ์ทุกชิ้นเข้าด้วยกัน",
+                svg: `<svg viewBox="0 0 120 120" class="w-40 h-40">
+                        <rect x="15" y="15" width="90" height="90" rx="6" fill="#141834" stroke="#00f3ff" stroke-width="3"/>
+                        <!-- CPU Socket -->
+                        <rect x="28" y="28" width="32" height="32" rx="3" fill="#23153c" stroke="#ff007f" stroke-width="2.5"/>
+                        <!-- RAM Slots -->
+                        <line x1="72" y1="26" x2="72" y2="62" stroke="#fcee0a" stroke-width="3"/>
+                        <line x1="80" y1="26" x2="80" y2="62" stroke="#fcee0a" stroke-width="3"/>
+                        <line x1="88" y1="26" x2="88" y2="62" stroke="#00ff66" stroke-width="3"/>
+                        <!-- PCIe Slots -->
+                        <line x1="28" y1="76" x2="75" y2="76" stroke="#00f3ff" stroke-width="4"/>
+                        <line x1="28" y1="88" x2="75" y2="88" stroke="#00f3ff" stroke-width="4"/>
+                        <!-- CMOS Battery -->
+                        <circle cx="88" cy="84" r="8" fill="#334155" stroke="#e2e8f0" stroke-width="2"/>
+                      </svg>`
+            },
+            {
+                id: 4,
+                name: "GPU / การ์ดจอ (หน่วยประมวลผลกราฟิก)",
+                shortName: "การ์ดจอ (GPU)",
+                category: "หน่วยประมวลผลภาพ",
+                hint: "ทำหน้าที่ประมวลผลภาพกราฟิก 3 มิติ วิดีโอ และเกม ให้แสดงผลบนหน้าจอได้อย่างสวยงามคมชัด",
+                svg: `<svg viewBox="0 0 140 100" class="w-44 h-36">
+                        <rect x="18" y="22" width="108" height="56" rx="8" fill="#1b1438" stroke="#ff007f" stroke-width="3"/>
+                        <!-- Dual Cooling Fans -->
+                        <circle cx="48" cy="50" r="20" fill="#0d0f22" stroke="#00f3ff" stroke-width="2.5"/>
+                        <circle cx="94" cy="50" r="20" fill="#0d0f22" stroke="#00f3ff" stroke-width="2.5"/>
+                        <path d="M48 34 L48 66 M32 50 L64 50 M37 39 L59 61 M59 39 L37 61" stroke="#00f3ff" stroke-width="2"/>
+                        <path d="M94 34 L94 66 M78 50 L110 50 M83 39 L105 61 M105 39 L83 61" stroke="#00f3ff" stroke-width="2"/>
+                        <!-- Bracket & PCIe -->
+                        <line x1="12" y1="15" x2="12" y2="88" stroke="#cbd5e1" stroke-width="4"/>
+                        <rect x="35" y="78" width="55" height="6" fill="#fcee0a"/>
+                      </svg>`
+            },
+            {
+                id: 5,
+                name: "SSD (เอสเอสดี / อุปกรณ์บันทึกข้อมูลความเร็วสูง)",
+                shortName: "SSD (เอสเอสดี)",
+                category: "หน่วยความจำสำรอง",
+                hint: "แหล่งเก็บข้อมูลถาวรยุคใหม่ที่ใช้ชิปแฟลช ไม่มีจานหมุน ทำให้เปิดเครื่องและโหลดโปรแกรมเร็วมาก",
+                svg: `<svg viewBox="0 0 130 100" class="w-44 h-36">
+                        <rect x="20" y="18" width="90" height="64" rx="8" fill="#101b35" stroke="#00ff66" stroke-width="3"/>
+                        <rect x="30" y="28" width="70" height="32" rx="4" fill="#1a1236" stroke="#00f3ff" stroke-width="2"/>
+                        <text x="65" y="49" text-anchor="middle" fill="#fcee0a" font-family="Orbitron" font-weight="900" font-size="16">SSD</text>
+                        <path d="M40 70 L90 70" stroke="#ff007f" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="27" cy="25" r="2" fill="#00ff66"/><circle cx="103" cy="25" r="2" fill="#00ff66"/>
+                        <circle cx="27" cy="75" r="2" fill="#00ff66"/><circle cx="103" cy="75" r="2" fill="#00ff66"/>
+                      </svg>`
+            },
+            {
+                id: 6,
+                name: "Hard Disk / HDD (ฮาร์ดดิสก์จานหมุน)",
+                shortName: "Hard Disk (ฮาร์ดดิสก์)",
+                category: "หน่วยความจำสำรอง",
+                hint: "อุปกรณ์เก็บข้อมูลถาวรความจุสูง ภายในมีแผ่นจานแม่เหล็กหมุนและมีหัวอ่านคล้ายเครื่องเล่นแผ่นเสียง",
+                svg: `<svg viewBox="0 0 120 120" class="w-40 h-40">
+                        <rect x="22" y="14" width="76" height="92" rx="8" fill="#14182e" stroke="#00f3ff" stroke-width="3"/>
+                        <!-- Platter -->
+                        <circle cx="60" cy="52" r="27" fill="#1e293b" stroke="#00ff66" stroke-width="2.5"/>
+                        <circle cx="60" cy="52" r="8" fill="#090a14" stroke="#fcee0a" stroke-width="2.5"/>
+                        <!-- Actuator Arm -->
+                        <path d="M36 88 L56 58" stroke="#ff007f" stroke-width="4" stroke-linecap="round"/>
+                        <circle cx="36" cy="88" r="6" fill="#ff007f"/>
+                      </svg>`
+            },
+            {
+                id: 7,
+                name: "Flash Drive (แฟลชไดรฟ์ / ยูเอสบีไดรฟ์)",
+                shortName: "Flash Drive (แฟลชไดรฟ์)",
+                category: "หน่วยความจำสำรอง",
+                hint: "อุปกรณ์บันทึกข้อมูลขนาดเล็กพกพาใส่กระเป๋าได้ ใช้เสียบเข้ากับช่อง USB เพื่อย้ายไฟล์",
+                svg: `<svg viewBox="0 0 130 100" class="w-44 h-36">
+                        <!-- USB Plug -->
+                        <rect x="18" y="36" width="28" height="28" rx="2" fill="#1e293b" stroke="#fcee0a" stroke-width="3"/>
+                        <rect x="24" y="42" width="6" height="6" fill="#fcee0a"/>
+                        <rect x="24" y="52" width="6" height="6" fill="#fcee0a"/>
+                        <!-- Body -->
+                        <rect x="46" y="28" width="64" height="44" rx="12" fill="#23123b" stroke="#00f3ff" stroke-width="3"/>
+                        <circle cx="96" cy="50" r="6" fill="#090a14" stroke="#ff007f" stroke-width="2.5"/>
+                        <text x="72" y="55" text-anchor="middle" fill="#00ff66" font-family="Orbitron" font-weight="800" font-size="13">USB</text>
+                      </svg>`
+            },
+            {
+                id: 8,
+                name: "Monitor (จอภาพ / มอนิเตอร์)",
+                shortName: "Monitor (จอภาพ)",
+                category: "หน่วยแสดงผล",
+                hint: "อุปกรณ์แสดงผลลัพธ์เป็นภาพ ข้อความ และวิดีโอ เพื่อให้ผู้ใช้งานมองเห็นการทำงานของเครื่อง",
+                svg: `<svg viewBox="0 0 130 110" class="w-44 h-36">
+                        <rect x="15" y="14" width="100" height="64" rx="6" fill="#0f172a" stroke="#00f3ff" stroke-width="3.5"/>
+                        <rect x="22" y="21" width="86" height="50" rx="2" fill="#181236"/>
+                        <!-- Screen Cyber Graphic -->
+                        <polyline points="28,58 48,40 64,52 85,30 100,42" fill="none" stroke="#00ff66" stroke-width="3"/>
+                        <!-- Stand -->
+                        <path d="M56 78 L52 94 L78 94 L74 78" fill="#1e293b" stroke="#00f3ff" stroke-width="2.5"/>
+                        <line x1="38" y1="95" x2="92" y2="95" stroke="#ff007f" stroke-width="4" stroke-linecap="round"/>
+                      </svg>`
+            },
+            {
+                id: 9,
+                name: "Keyboard (คีย์บอร์ด / แป้นพิมพ์)",
+                shortName: "Keyboard (แป้นพิมพ์)",
+                category: "หน่วยรับข้อมูล",
+                hint: "อุปกรณ์รับข้อมูลที่มีปุ่มตัวอักษร ตัวเลข และปุ่มคำสั่ง สำหรับพิมพ์ข้อความเข้าสู่คอมพิวเตอร์",
+                svg: `<svg viewBox="0 0 140 100" class="w-44 h-36">
+                        <path d="M68 32 Q68 15 85 15" fill="none" stroke="#00f3ff" stroke-width="2.5"/>
+                        <rect x="10" y="32" width="120" height="52" rx="6" fill="#141834" stroke="#00f3ff" stroke-width="3"/>
+                        <!-- Keys Row 1 -->
+                        <g fill="#ff007f">
+                            <rect x="18" y="40" width="10" height="8" rx="1"/><rect x="32" y="40" width="10" height="8" rx="1"/>
+                            <rect x="46" y="40" width="10" height="8" rx="1"/><rect x="60" y="40" width="10" height="8" rx="1"/>
+                            <rect x="74" y="40" width="10" height="8" rx="1"/><rect x="88" y="40" width="10" height="8" rx="1"/>
+                            <rect x="102" y="40" width="18" height="8" rx="1"/>
+                        </g>
+                        <!-- Keys Row 2 -->
+                        <g fill="#00f3ff">
+                            <rect x="20" y="53" width="12" height="8" rx="1"/><rect x="36" y="53" width="12" height="8" rx="1"/>
+                            <rect x="52" y="53" width="12" height="8" rx="1"/><rect x="68" y="53" width="12" height="8" rx="1"/>
+                            <rect x="84" y="53" width="12" height="8" rx="1"/><rect x="100" y="53" width="20" height="8" rx="1"/>
+                        </g>
+                        <!-- Spacebar Row -->
+                        <rect x="40" y="66" width="60" height="9" rx="2" fill="#fcee0a"/>
+                      </svg>`
+            },
+            {
+                id: 10,
+                name: "Mouse (เมาส์)",
+                shortName: "Mouse (เมาส์)",
+                category: "หน่วยรับข้อมูล",
+                hint: "อุปกรณ์รับข้อมูลใช้จับเลื่อนบนโต๊ะ เพื่อควบคุมลูกศรชี้ตำแหน่ง (Cursor) คลิก และเลื่อนหน้าจอ",
+                svg: `<svg viewBox="0 0 120 120" class="w-40 h-40">
+                        <path d="M60 22 C60 8, 78 8, 82 4" fill="none" stroke="#00f3ff" stroke-width="2.5"/>
+                        <rect x="34" y="22" width="52" height="84" rx="26" fill="#151836" stroke="#00f3ff" stroke-width="3.5"/>
+                        <line x1="34" y1="54" x2="86" y2="54" stroke="#00f3ff" stroke-width="2.5"/>
+                        <line x1="60" y1="22" x2="60" y2="54" stroke="#00f3ff" stroke-width="2.5"/>
+                        <!-- Scroll Wheel -->
+                        <rect x="56" y="30" width="8" height="16" rx="4" fill="#fcee0a" stroke="#ff007f" stroke-width="1.5"/>
+                        <!-- RGB Logo Glow -->
+                        <circle cx="60" cy="82" r="8" fill="none" stroke="#ff007f" stroke-width="2.5"/>
+                      </svg>`
+            },
+            {
+                id: 11,
+                name: "Printer (พรินเตอร์ / เครื่องพิมพ์)",
+                shortName: "Printer (เครื่องพิมพ์)",
+                category: "หน่วยแสดงผล",
+                hint: "อุปกรณ์แสดงผลลัพธ์ที่ทำหน้าที่พิมพ์เอกสาร รูปภาพ หรือข้อความจากคอมพิวเตอร์ลงบนกระดาษ",
+                svg: `<svg viewBox="0 0 130 110" class="w-44 h-36">
+                        <!-- Top Paper -->
+                        <rect x="38" y="12" width="54" height="24" fill="#1e293b" stroke="#00f3ff" stroke-width="2.5"/>
+                        <!-- Printer Body -->
+                        <rect x="18" y="34" width="94" height="42" rx="8" fill="#151632" stroke="#ff007f" stroke-width="3"/>
+                        <circle cx="96" cy="48" r="4" fill="#00ff66"/>
+                        <!-- Output Paper -->
+                        <rect x="34" y="64" width="62" height="32" fill="#0f172a" stroke="#fcee0a" stroke-width="2.5"/>
+                        <line x1="42" y1="74" x2="86" y2="74" stroke="#00f3ff" stroke-width="2.5"/>
+                        <line x1="42" y1="83" x2="74" y2="83" stroke="#00f3ff" stroke-width="2.5"/>
+                      </svg>`
+            },
+            {
+                id: 12,
+                name: "Scanner (สแกนเนอร์ / เครื่องสแกนภาพ)",
+                shortName: "Scanner (สแกนเนอร์)",
+                category: "หน่วยรับข้อมูล",
+                hint: "อุปกรณ์รับข้อมูลที่ส่องแสงอ่านภาพหรือเอกสารบนกระดาษ แล้วแปลงเป็นไฟล์ดิจิทัลเข้าสู่คอมพิวเตอร์",
+                svg: `<svg viewBox="0 0 130 110" class="w-44 h-36">
+                        <!-- Flatbed Base -->
+                        <rect x="20" y="58" width="90" height="26" rx="4" fill="#161b36" stroke="#00f3ff" stroke-width="3"/>
+                        <!-- Raised Lid -->
+                        <path d="M22 58 L38 20 L106 20 L98 58 Z" fill="#231438" stroke="#ff007f" stroke-width="2.5"/>
+                        <!-- Laser Scan Line -->
+                        <line x1="28" y1="58" x2="102" y2="58" stroke="#00ff66" stroke-width="4"/>
+                        <rect x="30" y="66" width="50" height="6" rx="2" fill="#fcee0a"/>
+                      </svg>`
+            },
+            {
+                id: 13,
+                name: "Webcam (เว็บแคม / กล้องวิดีโอคอมพิวเตอร์)",
+                shortName: "Webcam (เว็บแคม)",
+                category: "หน่วยรับข้อมูล",
+                hint: "กล้องขนาดเล็กสำหรับจับภาพใบหน้าและวิดีโอของผู้ใช้ นิยมใช้เรียนออนไลน์หรือประชุมทางไกล",
+                svg: `<svg viewBox="0 0 120 120" class="w-40 h-40">
+                        <circle cx="60" cy="52" r="32" fill="#161b38" stroke="#00f3ff" stroke-width="3.5"/>
+                        <circle cx="60" cy="52" r="18" fill="#090a14" stroke="#ff007f" stroke-width="3"/>
+                        <circle cx="60" cy="52" r="7" fill="#00f3ff"/>
+                        <circle cx="66" cy="46" r="3" fill="#ffffff"/>
+                        <!-- Green Rec LED -->
+                        <circle cx="82" cy="36" r="3.5" fill="#00ff66"/>
+                        <!-- Base Clip -->
+                        <path d="M42 84 L30 98 L90 98 L78 84 Z" fill="#1e293b" stroke="#fcee0a" stroke-width="2.5"/>
+                      </svg>`
+            },
+            {
+                id: 14,
+                name: "Microphone (ไมโครโฟน)",
+                shortName: "Microphone (ไมโครโฟน)",
+                category: "หน่วยรับข้อมูล",
+                hint: "อุปกรณ์รับข้อมูลเสียงพูดหรือเสียงร้องของผู้ใช้ เพื่อแปลงเป็นสัญญาณเสียงดิจิทัลเข้าสู่คอมพิวเตอร์",
+                svg: `<svg viewBox="0 0 120 120" class="w-40 h-40">
+                        <rect x="44" y="18" width="32" height="50" rx="16" fill="#1a163b" stroke="#00f3ff" stroke-width="3.5"/>
+                        <line x1="46" y1="34" x2="74" y2="34" stroke="#ff007f" stroke-width="2.5"/>
+                        <line x1="46" y1="44" x2="74" y2="44" stroke="#ff007f" stroke-width="2.5"/>
+                        <path d="M32 48 A28 28 0 0 0 88 48" fill="none" stroke="#fcee0a" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="60" y1="76" x2="60" y2="100" stroke="#00f3ff" stroke-width="4"/>
+                        <line x1="38" y1="100" x2="82" y2="100" stroke="#00ff66" stroke-width="4" stroke-linecap="round"/>
+                      </svg>`
+            },
+            {
+                id: 15,
+                name: "Speaker (ลำโพงคอมพิวเตอร์)",
+                shortName: "Speaker (ลำโพง)",
+                category: "หน่วยแสดงผล",
+                hint: "อุปกรณ์แสดงผลลัพธ์ในรูปแบบ 'เสียง' เช่น เสียงเพลง เสียงพูด หรือเสียงเอฟเฟกต์ในเกม",
+                svg: `<svg viewBox="0 0 120 120" class="w-40 h-40">
+                        <rect x="26" y="14" width="60" height="92" rx="8" fill="#151936" stroke="#00f3ff" stroke-width="3.5"/>
+                        <circle cx="56" cy="36" r="11" fill="#090a14" stroke="#fcee0a" stroke-width="2.5"/>
+                        <circle cx="56" cy="74" r="20" fill="#090a14" stroke="#ff007f" stroke-width="3"/>
+                        <circle cx="56" cy="74" r="7" fill="#ff007f"/>
+                        <!-- Sound Waves -->
+                        <path d="M94 46 Q104 60 94 74" fill="none" stroke="#00ff66" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M102 36 Q116 60 102 84" fill="none" stroke="#00ff66" stroke-width="3" stroke-linecap="round"/>
+                      </svg>`
+            },
+            {
+                id: 16,
+                name: "Router (เราเตอร์ / อุปกรณ์กระจายสัญญาณอินเทอร์เน็ต)",
+                shortName: "Router (เราเตอร์ Wi-Fi)",
+                category: "อุปกรณ์เครือข่าย",
+                hint: "อุปกรณ์เครือข่ายที่มีเสาสัญญาณ ทำหน้าที่เชื่อมต่อและกระจายสัญญาณอินเทอร์เน็ต (Wi-Fi) ในบ้านหรือโรงเรียน",
+                svg: `<svg viewBox="0 0 130 110" class="w-44 h-36">
+                        <!-- Antennas -->
+                        <line x1="32" y1="62" x2="22" y2="20" stroke="#00f3ff" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="65" y1="62" x2="65" y2="16" stroke="#00f3ff" stroke-width="4" stroke-linecap="round"/>
+                        <line x1="98" y1="62" x2="108" y2="20" stroke="#00f3ff" stroke-width="4" stroke-linecap="round"/>
+                        <!-- Waves -->
+                        <path d="M52 30 Q65 20 78 30" fill="none" stroke="#fcee0a" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M44 40 Q65 25 86 40" fill="none" stroke="#00ff66" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- Router Body -->
+                        <rect x="20" y="62" width="90" height="26" rx="6" fill="#181538" stroke="#ff007f" stroke-width="3"/>
+                        <circle cx="36" cy="75" r="3" fill="#00ff66"/><circle cx="48" cy="75" r="3" fill="#00ff66"/>
+                        <circle cx="60" cy="75" r="3" fill="#fcee0a"/><circle cx="72" cy="75" r="3" fill="#00f3ff"/>
+                      </svg>`
+            },
+            {
+                id: 17,
+                name: "LAN Cable (สายแลน / สายสัญญาณเครือข่าย)",
+                shortName: "สาย LAN (สายแลน)",
+                category: "อุปกรณ์เครือข่าย",
+                hint: "สายสัญญาณหัวพลาสติกใส (RJ-45) ใช้เสียบเชื่อมต่ออินเทอร์เน็ตเข้ากับคอมพิวเตอร์โดยตรงให้มีความเสถียร",
+                svg: `<svg viewBox="0 0 130 110" class="w-44 h-36">
+                        <!-- Cable -->
+                        <path d="M65 102 L65 68" stroke="#00f3ff" stroke-width="14" stroke-linecap="round"/>
+                        <!-- RJ45 Plug -->
+                        <rect x="41" y="24" width="48" height="44" rx="4" fill="#151b38" stroke="#00ff66" stroke-width="3"/>
+                        <!-- Gold Pins -->
+                        <line x1="49" y1="24" x2="49" y2="36" stroke="#fcee0a" stroke-width="3"/>
+                        <line x1="57" y1="24" x2="57" y2="36" stroke="#fcee0a" stroke-width="3"/>
+                        <line x1="65" y1="24" x2="65" y2="36" stroke="#fcee0a" stroke-width="3"/>
+                        <line x1="73" y1="24" x2="73" y2="36" stroke="#fcee0a" stroke-width="3"/>
+                        <line x1="81" y1="24" x2="81" y2="36" stroke="#fcee0a" stroke-width="3"/>
+                        <!-- Clip -->
+                        <path d="M89 36 L98 42 L98 58 L89 58" fill="none" stroke="#ff007f" stroke-width="3"/>
+                      </svg>`
+            },
+            {
+                id: 18,
+                name: "Power Supply / PSU (พาวเวอร์ซัพพลาย)",
+                shortName: "Power Supply (แหล่งจ่ายไฟ)",
+                category: "ระบบพลังงาน",
+                hint: "อุปกรณ์แปลงกระแสไฟฟ้าจากปลั๊กไฟบ้าน เพื่อจ่ายพลังงานไฟฟ้าที่เหมาะสมให้กับชิ้นส่วนต่างๆ ในเคส",
+                svg: `<svg viewBox="0 0 130 110" class="w-44 h-36">
+                        <rect x="20" y="20" width="90" height="70" rx="6" fill="#141830" stroke="#00f3ff" stroke-width="3"/>
+                        <circle cx="52" cy="55" r="22" fill="#0a0c1b" stroke="#00f3ff" stroke-width="2.5"/>
+                        <!-- Lightning Bolt -->
+                        <polygon points="55,38 43,56 53,56 49,72 63,52 53,52" fill="#fcee0a"/>
+                        <!-- Power Switch -->
+                        <rect x="84" y="34" width="16" height="22" rx="2" fill="#ff007f"/>
+                        <text x="92" y="76" text-anchor="middle" fill="#00ff66" font-family="Orbitron" font-weight="800" font-size="11">750W</text>
+                      </svg>`
+            },
+            {
+                id: 19,
+                name: "UPS (เครื่องสำรองไฟ)",
+                shortName: "UPS (เครื่องสำรองไฟ)",
+                category: "ระบบพลังงาน",
+                hint: "เครื่องสำรองไฟฟ้าที่มีแบตเตอรี่ในตัว ช่วยจ่ายไฟให้คอมพิวเตอร์ทำงานต่อได้ชั่วคราวเมื่อเกิดไฟดับกะทันหัน",
+                svg: `<svg viewBox="0 0 120 120" class="w-40 h-40">
+                        <rect x="32" y="14" width="56" height="92" rx="8" fill="#161936" stroke="#00ff66" stroke-width="3.5"/>
+                        <!-- LCD Status Screen -->
+                        <rect x="42" y="26" width="36" height="22" rx="3" fill="#090d1f" stroke="#00f3ff" stroke-width="2"/>
+                        <text x="60" y="41" text-anchor="middle" fill="#00ff66" font-family="Orbitron" font-weight="800" font-size="11">100%</text>
+                        <!-- Battery Icon -->
+                        <rect x="46" y="62" width="28" height="16" rx="2" fill="none" stroke="#fcee0a" stroke-width="2.5"/>
+                        <rect x="50" y="66" width="16" height="8" fill="#fcee0a"/>
+                        <circle cx="60" cy="92" r="5" fill="#ff007f"/>
+                      </svg>`
+            },
+            {
+                id: 20,
+                name: "Projector (โปรเจกเตอร์ / เครื่องฉายภาพ)",
+                shortName: "Projector (โปรเจกเตอร์)",
+                category: "หน่วยแสดงผล",
+                hint: "อุปกรณ์แสดงผลลัพธ์ที่ฉายแสงภาพจากคอมพิวเตอร์ออกไปยังฉากรับภาพขนาดใหญ่หน้าห้องเรียน",
+                svg: `<svg viewBox="0 0 140 100" class="w-44 h-36">
+                        <rect x="16" y="34" width="84" height="42" rx="8" fill="#171638" stroke="#00f3ff" stroke-width="3"/>
+                        <!-- Lens -->
+                        <circle cx="76" cy="55" r="14" fill="#090a14" stroke="#ff007f" stroke-width="3"/>
+                        <circle cx="76" cy="55" r="6" fill="#00f3ff"/>
+                        <!-- Projection Light Beam -->
+                        <polygon points="90,48 132,22 132,88 90,62" fill="rgba(252, 238, 10, 0.25)" stroke="#fcee0a" stroke-width="2" stroke-dasharray="4 2"/>
+                        <line x1="28" y1="48" x2="48" y2="48" stroke="#00ff66" stroke-width="3"/>
+                        <line x1="28" y1="58" x2="48" y2="58" stroke="#00ff66" stroke-width="3"/>
+                      </svg>`
+            }
+        ];
+
+        /* -------------------------------------------------------------------------- */
+        /* 2. WEB AUDIO SYNTHESIZER (NO EXTERNAL MP3 REQUIRED)                        */
+        /* -------------------------------------------------------------------------- */
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const icon = document.getElementById('soundIcon');
+            const text = document.getElementById('soundText');
+            if (soundEnabled) {
+                icon.className = "fa-solid fa-volume-high";
+                text.textContent = "เสียง: เปิด";
+                playSound('click');
+            } else {
+                icon.className = "fa-solid fa-volume-xmark text-pink-400";
+                text.textContent = "เสียง: ปิด";
+            }
+        }
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            try {
+                initAudio();
+                if (!audioCtx) return;
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'correct') {
+                    // Bright Cyberpunk Ascending Arpeggio (+1)
+                    const freqs = [523.25, 659.25, 783.99, 1046.50];
+                    freqs.forEach((f, idx) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(f, now + idx * 0.06);
+                        gain.gain.setValueAtTime(0.18, now + idx * 0.06);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.25);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(now + idx * 0.06);
+                        osc.stop(now + idx * 0.06 + 0.25);
+                    });
+                } else if (type === 'wrong') {
+                    // Dramatic Buzzer Siren for "กรุณาอย่าเจ๋อ" (-5)
+                    const osc1 = audioCtx.createOscillator();
+                    const osc2 = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc1.type = 'sawtooth';
+                    osc2.type = 'square';
+                    osc1.frequency.setValueAtTime(165, now);
+                    osc1.frequency.linearRampToValueAtTime(95, now + 0.45);
+                    osc2.frequency.setValueAtTime(155, now);
+                    osc2.frequency.linearRampToValueAtTime(88, now + 0.45);
+
+                    gain.gain.setValueAtTime(0.22, now);
+                    gain.gain.exponentialRampToValueAtTime(0.005, now + 0.5);
+
+                    osc1.connect(gain);
+                    osc2.connect(gain);
+                    gain.connect(audioCtx.destination);
+
+                    osc1.start(now);
+                    osc2.start(now);
+                    osc1.stop(now + 0.5);
+                    osc2.stop(now + 0.5);
+                } else if (type === 'tick') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(880, now);
+                    gain.gain.setValueAtTime(0.05, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'click') {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                }
+            } catch (e) {
+                console.warn("Audio playback skipped:", e);
+            }
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* 3. GAME STATE & CORE LOGIC                                                 */
+        /* -------------------------------------------------------------------------- */
+        const QUESTION_TIME_LIMIT = 10.0; // 10 seconds per question
+        let questionsQueue = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let correctAnswersCount = 0;
+        let wrongAnswersCount = 0;
+        let answerHistory = [];
+
+        let timeLeft = QUESTION_TIME_LIMIT;
+        let timerInterval = null;
+        let lastBeepSecond = 4;
+        let isQuestionLocked = false;
+
+        // Utility: Fisher-Yates Shuffle
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        function startGame() {
+            playSound('click');
+            // Reset state
+            questionsQueue = shuffleArray(hardwareDatabase);
+            currentQuestionIndex = 0;
+            score = 0;
+            correctAnswersCount = 0;
+            wrongAnswersCount = 0;
+            answerHistory = [];
+
+            // Switch Views
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('endScreen').classList.add('hidden');
+            const gameScreen = document.getElementById('gameScreen');
+            gameScreen.classList.remove('hidden');
+            gameScreen.classList.add('flex');
+
+            updateScoreDisplay(0);
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            clearInterval(timerInterval);
+            isQuestionLocked = false;
+
+            if (currentQuestionIndex >= questionsQueue.length) {
+                endGame();
+                return;
+            }
+
+            const currentQ = questionsQueue[currentQuestionIndex];
+
+            // Update HUD
+            document.getElementById('questionIndexText').textContent = (currentQuestionIndex + 1);
+            document.getElementById('svgContainer').innerHTML = currentQ.svg;
+            document.getElementById('categoryBadge').textContent = `หมวดหมู่: ${currentQ.category}`;
+            document.getElementById('questionHintText').textContent = currentQ.hint;
+
+            // Build 4 Multiple Choice Options (1 Correct + 3 Distractors)
+            const distractors = shuffleArray(
+                hardwareDatabase.filter(item => item.id !== currentQ.id)
+            ).slice(0, 3);
+
+            const choices = shuffleArray([currentQ, ...distractors]);
+            const choicesGrid = document.getElementById('choicesGrid');
+            choicesGrid.innerHTML = '';
+
+            const optionLabels = ['A', 'B', 'C', 'D'];
+            choices.forEach((choiceItem, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "cyber-btn p-4 rounded-2xl text-left flex items-center gap-3.5 cursor-pointer group";
+                btn.onclick = () => selectAnswer(choiceItem.id, btn);
+
+                btn.innerHTML = `
+                    <span class="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center font-cyber font-bold text-cyan-300 group-hover:bg-yellow-400 group-hover:text-slate-950 group-hover:border-white shrink-0 transition">
+                        ${optionLabels[idx]}
+                    </span>
+                    <span class="text-base sm:text-lg font-bold text-white leading-snug">
+                        ${choiceItem.shortName}
+                    </span>
+                `;
+                choicesGrid.appendChild(btn);
+            });
+
+            // Start 10-Second Timer
+            startQuestionTimer();
+        }
+
+        function startQuestionTimer() {
+            timeLeft = QUESTION_TIME_LIMIT;
+            lastBeepSecond = 4;
+            updateTimerUI();
+
+            const startTime = performance.now();
+            timerInterval = setInterval(() => {
+                const elapsed = (performance.now() - startTime) / 1000;
+                timeLeft = Math.max(0, QUESTION_TIME_LIMIT - elapsed);
+                updateTimerUI();
+
+                // Low-time warning beep at 3, 2, 1 seconds
+                const ceilSec = Math.ceil(timeLeft);
+                if (ceilSec <= 3 && ceilSec > 0 && ceilSec < lastBeepSecond) {
+                    lastBeepSecond = ceilSec;
+                    playSound('tick');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleWrongOrTimeout(true);
+                }
+            }, 50);
+        }
+
+        function updateTimerUI() {
+            const timerText = document.getElementById('timerText');
+            const timerBar = document.getElementById('timerBar');
+            const timerCard = document.getElementById('timerCard');
+
+            timerText.textContent = timeLeft.toFixed(1);
+            const percentage = (timeLeft / QUESTION_TIME_LIMIT) * 100;
+            timerBar.style.width = `${percentage}%`;
+
+            if (timeLeft <= 3.0) {
+                timerText.className = "text-3xl sm:text-4xl font-black font-cyber text-pink-500 text-glow-pink animate-pulse";
+                timerBar.className = "h-full rounded-full bg-gradient-to-r from-pink-600 to-yellow-400 transition-all duration-75";
+                timerCard.classList.add('cyber-card-pink');
+            } else {
+                timerText.className = "text-3xl sm:text-4xl font-black font-cyber text-yellow-300 text-glow-yellow";
+                timerBar.className = "h-full rounded-full bg-gradient-to-r from-cyan-400 via-emerald-400 to-yellow-300 transition-all duration-75";
+                timerCard.classList.remove('cyber-card-pink');
+            }
+        }
+
+        function selectAnswer(selectedId, btnElement) {
+            if (isQuestionLocked) return;
+            isQuestionLocked = true;
+            clearInterval(timerInterval);
+
+            const currentQ = questionsQueue[currentQuestionIndex];
+            const isCorrect = (selectedId === currentQ.id);
+
+            // Disable all choice buttons
+            const allButtons = document.querySelectorAll('#choicesGrid button');
+            allButtons.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                // Correct Answer (+1)
+                score += 1;
+                correctAnswersCount += 1;
+                answerHistory.push({ question: currentQ, isCorrect: true });
+
+                btnElement.classList.add('!border-emerald-400', '!bg-emerald-500/30');
+                playSound('correct');
+                updateScoreDisplay(+1);
+
+                // Show brief +1 overlay then advance
+                const overlay = document.getElementById('correctOverlay');
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                    overlay.classList.remove('flex');
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }, 850);
+            } else {
+                // Wrong Answer (-5 & "กรุณาอย่าเจ๋อ")
+                btnElement.classList.add('!border-pink-500', '!bg-pink-600/40');
+                handleWrongOrTimeout(false);
+            }
+        }
+
+        function handleWrongOrTimeout(isTimeout) {
+            isQuestionLocked = true;
+            const currentQ = questionsQueue[currentQuestionIndex];
+
+            score -= 5;
+            wrongAnswersCount += 1;
+            answerHistory.push({ question: currentQ, isCorrect: false });
+
+            playSound('wrong');
+            updateScoreDisplay(-5);
+
+            // Populate and display "กรุณาอย่าเจ๋อ" modal
+            const jeoModal = document.getElementById('jeoModal');
+            const jeoModalBox = document.getElementById('jeoModalBox');
+            const reasonText = document.getElementById('jeoReasonText');
+
+            if (isTimeout) {
+                reasonText.textContent = "หมดเวลา 10 วินาที! หักไปเลย -5 คะแนน ตั้งสติแล้วไวกว่านี้นะวัยรุ่น!";
+            } else {
+                reasonText.textContent = "จับคู่อุปกรณ์ผิด! หักไปเลย -5 คะแนน ดูภาพและคำใบ้ดีๆ นะวัยรุ่นไซเบอร์!";
+            }
+
+            document.getElementById('jeoCorrectDeviceName').textContent = currentQ.name;
+            document.getElementById('jeoCorrectExplanation').textContent = currentQ.hint;
+
+            jeoModal.classList.remove('hidden');
+            jeoModal.classList.add('flex');
+
+            // Trigger shake animation
+            jeoModalBox.classList.remove('animate-shake');
+            void jeoModalBox.offsetWidth; // trigger reflow
+            jeoModalBox.classList.add('animate-shake');
+        }
+
+        function closeJeoModalAndNext() {
+            playSound('click');
+            const jeoModal = document.getElementById('jeoModal');
+            jeoModal.classList.add('hidden');
+            jeoModal.classList.remove('flex');
+
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function updateScoreDisplay(delta) {
+            const scoreText = document.getElementById('scoreText');
+            const badge = document.getElementById('scoreDeltaBadge');
+
+            scoreText.textContent = score;
+            if (score < 0) {
+                scoreText.className = "text-2xl sm:text-3xl font-black font-cyber text-pink-400 text-glow-pink";
+            } else {
+                scoreText.className = "text-2xl sm:text-3xl font-black font-cyber text-emerald-400 text-glow-green";
+            }
+
+            if (delta !== 0) {
+                badge.classList.remove('hidden');
+                if (delta > 0) {
+                    badge.textContent = `+${delta}`;
+                    badge.className = "px-2.5 py-1 rounded-lg font-black text-sm sm:text-base bg-emerald-500/20 border border-emerald-400 text-emerald-300";
+                } else {
+                    badge.textContent = `${delta}`;
+                    badge.className = "px-2.5 py-1 rounded-lg font-black text-sm sm:text-base bg-pink-500/20 border border-pink-400 text-pink-300";
+                }
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* 4. END GAME & SUMMARY REPORT                                               */
+        /* -------------------------------------------------------------------------- */
+        function endGame() {
+            clearInterval(timerInterval);
+
+            const gameScreen = document.getElementById('gameScreen');
+            gameScreen.classList.add('hidden');
+            gameScreen.classList.remove('flex');
+
+            const endScreen = document.getElementById('endScreen');
+            endScreen.classList.remove('hidden');
+
+            const playerName = document.getElementById('playerNameInput').value.trim() || "วัยรุ่นไซเบอร์ ป.6";
+            document.getElementById('summaryPlayerName').textContent = playerName;
+
+            const finalScoreEl = document.getElementById('finalScoreText');
+            finalScoreEl.textContent = score;
+            if (score < 0) {
+                finalScoreEl.className = "text-4xl sm:text-5xl font-black font-cyber text-pink-400 text-glow-pink";
+            } else {
+                finalScoreEl.className = "text-4xl sm:text-5xl font-black font-cyber text-white text-glow-cyan";
+            }
+
+            document.getElementById('correctCountText').textContent = correctAnswersCount;
+            document.getElementById('wrongCountText').textContent = wrongAnswersCount;
+
+            // Evaluate Rank
+            const rankEl = document.getElementById('rankTitleText');
+            if (score === 20) {
+                rankEl.textContent = "👑 ยศไซเบอร์: เทพเจ้าฮาร์ดแวร์ไร้พ่าย (CYBER LEGEND P.6)";
+                rankEl.className = "text-xl sm:text-2xl font-extrabold text-yellow-300 text-glow-yellow mb-6";
+            } else if (score >= 10) {
+                rankEl.textContent = "🚀 ยศไซเบอร์: วิศวกรคอมพิวเตอร์รุ่นเยาว์ (PRO TECH AGENT)";
+                rankEl.className = "text-xl sm:text-2xl font-extrabold text-emerald-400 text-glow-green mb-6";
+            } else if (score >= 0) {
+                rankEl.textContent = "⚡ ยศไซเบอร์: นักสำรวจอุปกรณ์ดิจิทัล (CYBER ROOKIE)";
+                rankEl.className = "text-xl sm:text-2xl font-extrabold text-cyan-300 text-glow-cyan mb-6";
+            } else {
+                rankEl.textContent = "💥 ยศไซเบอร์: วัยรุ่นสายเจ๋อ ต้องทบทวนด่วน! (SYSTEM REBOOT NEEDED)";
+                rankEl.className = "text-xl sm:text-2xl font-extrabold text-pink-400 text-glow-pink mb-6";
+            }
+
+            // Populate Review List
+            const reviewContainer = document.getElementById('reviewListContainer');
+            reviewContainer.innerHTML = '';
+            answerHistory.forEach((entry, idx) => {
+                const card = document.createElement('div');
+                const borderClass = entry.isCorrect ? 'border-emerald-500/50 bg-emerald-950/20' : 'border-pink-500/60 bg-pink-950/25';
+                const statusBadge = entry.isCorrect
+                    ? `<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-xs font-bold">+1 ถูกต้อง</span>`
+                    : `<span class="px-2 py-0.5 rounded bg-pink-500/30 text-pink-300 text-xs font-bold">-5 ผิด/หมดเวลา</span>`;
+
+                card.className = `p-3 rounded-xl border ${borderClass} flex flex-col justify-between gap-1`;
+                card.innerHTML = `
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="font-bold text-white text-sm sm:text-base">${idx + 1}. ${entry.question.shortName}</span>
+                        ${statusBadge}
+                    </div>
+                    <p class="text-xs text-slate-300">${entry.question.hint}</p>
+                `;
+                reviewContainer.appendChild(card);
+            });
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* 5. EXPORT / DOWNLOAD SINGLE-FILE INDEX.HTML                                */
+        /* -------------------------------------------------------------------------- */
+        function downloadGameHTML() {
+            const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "index.html";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
